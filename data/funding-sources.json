@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "0.1",
+  "entries": [
+    {
+      "id": "dwebfoundation-grants",
+      "name": "DWeb Foundation Grants",
+      "dnsUrl": "https://github.com/dwebfoundation/grants",
+      "hnsUrl": "",
+      "website": "https://github.com/dwebfoundation/grants",
+      "sourceType": "github-issues",
+      "sourceUrl": "https://github.com/dwebfoundation/grants/issues",
+      "topics": ["grants", "public-goods", "ecosystem"],
+      "registryLabels": ["community-submitted", "unverified"],
+      "lastVerified": "2026-06-08",
+      "notes": "Initial funding source identified for Handshake ecosystem proposal discovery."
+    }
+  ]
+}

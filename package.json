@@ -1,0 +1,12 @@
+{
+  "name": "hns-community-registry",
+  "version": "0.1.0",
+  "description": "Open community registry for Handshake applications, news sources, funding sources, and funding proposals.",
+  "private": false,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node scripts/validate-registry.js",
+    "validate": "node scripts/validate-registry.js"
+  },
+  "license": "CC0-1.0"
+}

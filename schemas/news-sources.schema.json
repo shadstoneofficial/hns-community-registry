@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/shadstoneofficial/hns-community-registry/schemas/news-sources.schema.json",
+  "title": "HNS Community Registry News Sources",
+  "type": "object",
+  "required": ["schemaVersion", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "0.1" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "dnsUrl", "hnsUrl", "website", "feedUrl", "sourceMetadataUrl", "topics", "language", "registryLabels", "lastVerified", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "dnsUrl": { "type": "string" },
+          "hnsUrl": { "type": "string" },
+          "website": { "type": "string" },
+          "feedUrl": { "type": "string", "minLength": 1 },
+          "sourceMetadataUrl": { "type": "string" },
+          "topics": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["protocol", "developers", "market", "funding", "governance", "applications", "education", "community", "events", "security"] }
+          },
+          "language": { "type": "string" },
+          "registryLabels": { "$ref": "#/$defs/labels" },
+          "lastVerified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["community-submitted", "self-declared", "maintainer-verified", "source-verified", "signed", "unverified", "stale", "inactive", "flagged", "hns-site"]
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "0.1",
+  "entries": [
+    {
+      "id": "hns-investments",
+      "name": "HNS Investments",
+      "summary": "Desktop companion and ecosystem hub for Handshake portfolio, applications, news, funding, and Shakedex discovery.",
+      "category": "community",
+      "dnsUrl": "https://hnsinvestments.com",
+      "hnsUrl": "",
+      "website": "https://hnsinvestments.com",
+      "repository": "https://github.com/shadstoneofficial/hns-investments-companion",
+      "sourceMetadataUrl": "",
+      "openSource": true,
+      "platforms": ["macOS"],
+      "tags": ["desktop", "portfolio", "community", "funding", "news"],
+      "maintainers": [
+        {
+          "name": "Shadstone",
+          "url": "https://github.com/shadstoneofficial"
+        }
+      ],
+      "status": "active",
+      "registryLabels": ["maintainer-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "Early public registry consumer."
+    },
+    {
+      "id": "bob-learnhns",
+      "name": "Bob LearnHNS",
+      "summary": "Bob Wallet variant focused on LearnHNS workflows and Handshake power-user operations.",
+      "category": "wallet",
+      "dnsUrl": "",
+      "hnsUrl": "",
+      "website": "",
+      "repository": "https://github.com/shadstoneofficial/bob-wallet",
+      "sourceMetadataUrl": "",
+      "openSource": true,
+      "platforms": ["macOS"],
+      "tags": ["wallet", "desktop", "bob", "learnhns"],
+      "maintainers": [
+        {
+          "name": "Shadstone",
+          "url": "https://github.com/shadstoneofficial"
+        }
+      ],
+      "status": "active",
+      "registryLabels": ["maintainer-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": ""
+    },
+    {
+      "id": "shakedex",
+      "name": "Shakedex",
+      "summary": "Handshake name marketplace tooling and listing/proof infrastructure.",
+      "category": "marketplace",
+      "dnsUrl": "",
+      "hnsUrl": "",
+      "website": "",
+      "repository": "https://github.com/kurumiimari/shakedex",
+      "sourceMetadataUrl": "",
+      "openSource": true,
+      "platforms": ["CLI", "Web"],
+      "tags": ["marketplace", "domains", "proofs"],
+      "maintainers": [],
+      "status": "active",
+      "registryLabels": ["community-submitted", "unverified"],
+      "lastVerified": "2026-06-08",
+      "notes": "Initial registry entry should be verified with project maintainers later."
+    }
+  ]
+}

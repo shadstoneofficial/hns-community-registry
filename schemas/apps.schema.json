@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/shadstoneofficial/hns-community-registry/schemas/apps.schema.json",
+  "title": "HNS Community Registry Applications",
+  "type": "object",
+  "required": ["schemaVersion", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "0.1" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "category",
+          "dnsUrl",
+          "hnsUrl",
+          "website",
+          "repository",
+          "sourceMetadataUrl",
+          "openSource",
+          "platforms",
+          "tags",
+          "maintainers",
+          "status",
+          "registryLabels",
+          "lastVerified",
+          "notes"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string", "minLength": 1 },
+          "category": {
+            "type": "string",
+            "enum": ["wallet", "marketplace", "resolver", "browser", "registrar", "explorer", "developer-tool", "infrastructure", "education", "community", "other"]
+          },
+          "dnsUrl": { "type": "string" },
+          "hnsUrl": { "type": "string" },
+          "website": { "type": "string" },
+          "repository": { "type": "string" },
+          "sourceMetadataUrl": { "type": "string" },
+          "openSource": { "type": "boolean" },
+          "platforms": { "type": "array", "items": { "type": "string" } },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "maintainers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "url"],
+              "additionalProperties": false,
+              "properties": {
+                "name": { "type": "string" },
+                "url": { "type": "string" }
+              }
+            }
+          },
+          "status": { "type": "string", "enum": ["active", "inactive", "stale", "unknown"] },
+          "registryLabels": { "$ref": "#/$defs/labels" },
+          "lastVerified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["community-submitted", "self-declared", "maintainer-verified", "source-verified", "signed", "unverified", "stale", "inactive", "flagged", "hns-site"]
+      }
+    }
+  }
+}
