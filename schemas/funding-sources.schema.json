@@ -16,12 +16,12 @@
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
           "name": { "type": "string", "minLength": 1 },
-          "dnsUrl": { "type": "string" },
-          "hnsUrl": { "type": "string" },
+          "dnsUrl": { "type": "string", "description": "Normal DNS website URL, usually https://. Leave empty if unavailable." },
+          "hnsUrl": { "type": "string", "description": "Handshake-native website URL. Use a single-label HNS hostname, not a dotted DNS hostname. Leave empty if unavailable." },
           "website": { "type": "string" },
           "sourceType": { "type": "string", "enum": ["github-issues", "github-discussions", "rss", "website", "form", "other"] },
           "sourceUrl": { "type": "string", "minLength": 1 },
-          "topics": { "type": "array", "items": { "type": "string" } },
+          "topics": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
           "registryLabels": { "$ref": "#/$defs/labels" },
           "lastVerified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
           "notes": { "type": "string" }
@@ -32,6 +32,7 @@
   "$defs": {
     "labels": {
       "type": "array",
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "enum": ["community-submitted", "self-declared", "maintainer-verified", "source-verified", "signed", "unverified", "stale", "inactive", "flagged", "hns-site"]

@@ -48,17 +48,20 @@ const files = [
       enumValue(entry.status, appStatuses, 'status', fail);
       booleanValue(entry.openSource, 'openSource', fail);
       arrayValue(entry.platforms, 'platforms', fail);
+      uniqueArrayValues(entry.platforms, 'platforms', fail);
       arrayValue(entry.tags, 'tags', fail);
+      uniqueArrayValues(entry.tags, 'tags', fail);
       arrayValue(entry.maintainers, 'maintainers', fail);
       for (const maintainer of entry.maintainers || []) {
         requiredObjectFields(maintainer, ['name', 'url'], 'maintainers[]', fail);
         optionalUrl(maintainer.url, 'maintainers[].url', fail);
       }
       optionalUrl(entry.dnsUrl, 'dnsUrl', fail);
-      optionalUrl(entry.hnsUrl, 'hnsUrl', fail, true);
+      optionalHnsUrl(entry.hnsUrl, 'hnsUrl', fail);
       optionalUrl(entry.website, 'website', fail, true);
       optionalUrl(entry.repository, 'repository', fail);
       optionalUrl(entry.sourceMetadataUrl, 'sourceMetadataUrl', fail, true);
+      requireHnsSiteLabel(entry, 'hnsUrl', fail);
     }
   },
   {
@@ -66,12 +69,14 @@ const files = [
     required: ['id', 'name', 'dnsUrl', 'hnsUrl', 'website', 'feedUrl', 'sourceMetadataUrl', 'topics', 'language', 'registryLabels', 'lastVerified', 'notes'],
     validate(entry, fail) {
       optionalUrl(entry.dnsUrl, 'dnsUrl', fail);
-      optionalUrl(entry.hnsUrl, 'hnsUrl', fail, true);
+      optionalHnsUrl(entry.hnsUrl, 'hnsUrl', fail);
       optionalUrl(entry.website, 'website', fail, true);
       optionalUrl(entry.feedUrl, 'feedUrl', fail);
       optionalUrl(entry.sourceMetadataUrl, 'sourceMetadataUrl', fail, true);
       arrayValue(entry.topics, 'topics', fail);
+      uniqueArrayValues(entry.topics, 'topics', fail);
       for (const topic of entry.topics || []) enumValue(topic, newsTopics, 'topics[]', fail);
+      requireHnsSiteLabel(entry, 'hnsUrl', fail);
     }
   },
   {
@@ -80,10 +85,12 @@ const files = [
     validate(entry, fail) {
       enumValue(entry.sourceType, fundingSourceTypes, 'sourceType', fail);
       optionalUrl(entry.dnsUrl, 'dnsUrl', fail);
-      optionalUrl(entry.hnsUrl, 'hnsUrl', fail, true);
+      optionalHnsUrl(entry.hnsUrl, 'hnsUrl', fail);
       optionalUrl(entry.website, 'website', fail, true);
       optionalUrl(entry.sourceUrl, 'sourceUrl', fail);
       arrayValue(entry.topics, 'topics', fail);
+      uniqueArrayValues(entry.topics, 'topics', fail);
+      requireHnsSiteLabel(entry, 'hnsUrl', fail);
     }
   },
   {
@@ -92,13 +99,15 @@ const files = [
     validate(entry, fail) {
       enumValue(entry.status, proposalStatuses, 'status', fail);
       optionalUrl(entry.sourceUrl, 'sourceUrl', fail);
-      optionalUrl(entry.projectDnsUrl, 'projectDnsUrl', fail, true);
-      optionalUrl(entry.projectHnsUrl, 'projectHnsUrl', fail, true);
+      optionalUrl(entry.projectDnsUrl, 'projectDnsUrl', fail);
+      optionalHnsUrl(entry.projectHnsUrl, 'projectHnsUrl', fail);
       optionalUrl(entry.projectUrl, 'projectUrl', fail, true);
       optionalUrl(entry.pledgeSourceUrl, 'pledgeSourceUrl', fail, true);
       arrayValue(entry.tags, 'tags', fail);
+      uniqueArrayValues(entry.tags, 'tags', fail);
       requiredObjectFields(entry.proposer, ['name', 'url'], 'proposer', fail);
       optionalUrl(entry.proposer && entry.proposer.url, 'proposer.url', fail, true);
+      requireHnsSiteLabel(entry, 'projectHnsUrl', fail);
     }
   }
 ];
@@ -129,10 +138,53 @@ function arrayValue(value, field, fail) {
   if (!Array.isArray(value)) fail(`${field} must be an array`);
 }
 
+function uniqueArrayValues(value, field, fail) {
+  if (!Array.isArray(value)) return;
+  const seen = new Set();
+  for (const item of value) {
+    if (typeof item !== 'string') continue;
+    if (seen.has(item)) fail(`${field} contains duplicate value "${item}"`);
+    seen.add(item);
+  }
+}
+
+function requireHnsSiteLabel(entry, field, fail) {
+  if (entry[field] && Array.isArray(entry.registryLabels) && !entry.registryLabels.includes('hns-site')) {
+    fail(`${field} is present, so registryLabels must include "hns-site"`);
+  }
+}
+
+function parseHttpUrl(value, field, fail) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    fail(`${field} must be http(s) URL when present`);
+    return null;
+  }
+  if (!['http:', 'https:'].includes(url.protocol)) {
+    fail(`${field} must be http(s) URL when present`);
+    return null;
+  }
+  return url;
+}
+
 function optionalUrl(value, field, fail, allowHns = false) {
   if (!value) return;
-  if (allowHns && /^https?:\/\/[^.\s/]+\/?/.test(value)) return;
-  if (!/^https?:\/\/\S+/.test(value)) fail(`${field} must be http(s) URL when present`);
+  const url = parseHttpUrl(value, field, fail);
+  if (!url) return;
+  if (!allowHns && !url.hostname.includes('.')) {
+    fail(`${field} must use a DNS hostname; put HNS-native URLs in hnsUrl fields`);
+  }
+}
+
+function optionalHnsUrl(value, field, fail) {
+  if (!value) return;
+  const url = parseHttpUrl(value, field, fail);
+  if (!url) return;
+  if (url.hostname.includes('.')) {
+    fail(`${field} must use an HNS-native hostname without DNS dots`);
+  }
 }
 
 function validateRegistryFile(config) {
@@ -158,8 +210,11 @@ function validateRegistryFile(config) {
 
     if (!todayPattern.test(entry.lastVerified || '')) itemFail('lastVerified must be YYYY-MM-DD');
     arrayValue(entry.registryLabels, 'registryLabels', itemFail);
+    const seenLabels = new Set();
     for (const label of entry.registryLabels || []) {
       enumValue(label, labels, 'registryLabels[]', itemFail);
+      if (seenLabels.has(label)) itemFail(`duplicate registry label "${label}"`);
+      seenLabels.add(label);
     }
 
     config.validate(entry, itemFail);

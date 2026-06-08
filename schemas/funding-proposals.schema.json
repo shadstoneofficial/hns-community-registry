@@ -18,15 +18,15 @@
           "title": { "type": "string", "minLength": 1 },
           "summary": { "type": "string", "minLength": 1 },
           "sourceUrl": { "type": "string", "minLength": 1 },
-          "projectDnsUrl": { "type": "string" },
-          "projectHnsUrl": { "type": "string" },
+          "projectDnsUrl": { "type": "string", "description": "Normal DNS project URL, usually https://. Leave empty if unavailable." },
+          "projectHnsUrl": { "type": "string", "description": "Handshake-native project URL. Use a single-label HNS hostname, not a dotted DNS hostname. Leave empty if unavailable." },
           "projectUrl": { "type": "string" },
           "requestedAmount": { "type": "string" },
           "currency": { "type": "string" },
           "pledgedAmount": { "type": "string" },
           "pledgeSourceUrl": { "type": "string" },
           "status": { "type": "string", "enum": ["open", "funded", "partially-funded", "closed", "withdrawn", "unknown"] },
-          "tags": { "type": "array", "items": { "type": "string" } },
+          "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
           "proposer": {
             "type": "object",
             "required": ["name", "url"],
@@ -46,6 +46,7 @@
   "$defs": {
     "labels": {
       "type": "array",
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "enum": ["community-submitted", "self-declared", "maintainer-verified", "source-verified", "signed", "unverified", "stale", "inactive", "flagged", "hns-site"]

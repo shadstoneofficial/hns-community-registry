@@ -25,6 +25,8 @@ schemas/news-sources.schema.json
 schemas/funding-sources.schema.json
 schemas/funding-proposals.schema.json
 scripts/validate-registry.js
+docs/STANDARD-v0.1.md
+CONTRIBUTING.md
 ```
 
 ## Entry Labels
@@ -65,6 +67,14 @@ Objective rejection reasons:
 
 Subjective project quality is not a rejection reason. Small, experimental, inactive, or unverified projects should be represented with labels and metadata.
 
+See `CONTRIBUTING.md` for full acceptance criteria, rejection criteria, public-safe data rules, and the seed-entry process.
+
+## Seed Entries
+
+Seed entries are starting data for consumers and community review. They are not an official, endorsed, or ranked project list.
+
+Seed pull requests should explain how candidates were collected, use conservative labels like `community-submitted` and `unverified` when evidence is limited, and invite project maintainers to correct or self-declare metadata.
+
 ## Validate
 
 This repo currently uses a dependency-free Node script for basic validation.
@@ -97,6 +107,6 @@ Funding proposals use:
 
 Draft standard source:
 
-`HNS Community Registry Standard v0.1`
+`docs/STANDARD-v0.1.md`
 
 This registry starts with schema version `0.1`.

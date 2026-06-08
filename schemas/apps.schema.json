@@ -39,14 +39,14 @@
             "type": "string",
             "enum": ["wallet", "marketplace", "resolver", "browser", "registrar", "explorer", "developer-tool", "infrastructure", "education", "community", "other"]
           },
-          "dnsUrl": { "type": "string" },
-          "hnsUrl": { "type": "string" },
+          "dnsUrl": { "type": "string", "description": "Normal DNS website URL, usually https://. Leave empty if unavailable." },
+          "hnsUrl": { "type": "string", "description": "Handshake-native website URL. Use a single-label HNS hostname, not a dotted DNS hostname. Leave empty if unavailable." },
           "website": { "type": "string" },
           "repository": { "type": "string" },
           "sourceMetadataUrl": { "type": "string" },
           "openSource": { "type": "boolean" },
-          "platforms": { "type": "array", "items": { "type": "string" } },
-          "tags": { "type": "array", "items": { "type": "string" } },
+          "platforms": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+          "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
           "maintainers": {
             "type": "array",
             "items": {
@@ -70,6 +70,7 @@
   "$defs": {
     "labels": {
       "type": "array",
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "enum": ["community-submitted", "self-declared", "maintainer-verified", "source-verified", "signed", "unverified", "stale", "inactive", "flagged", "hns-site"]
