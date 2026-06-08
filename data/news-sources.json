@@ -1,4 +1,89 @@
 {
   "schemaVersion": "0.1",
-  "entries": []
+  "entries": [
+    {
+      "id": "hsd-releases",
+      "name": "hsd Releases",
+      "dnsUrl": "https://github.com/handshake-org/hsd/releases",
+      "hnsUrl": "",
+      "website": "https://github.com/handshake-org/hsd/releases",
+      "feedUrl": "https://github.com/handshake-org/hsd/releases.atom",
+      "sourceMetadataUrl": "",
+      "topics": ["protocol", "developers", "security"],
+      "language": "en",
+      "registryLabels": ["community-submitted", "source-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "GitHub Atom feed for hsd release updates."
+    },
+    {
+      "id": "hnsd-commits",
+      "name": "hnsd Commit Feed",
+      "dnsUrl": "https://github.com/handshake-org/hnsd",
+      "hnsUrl": "",
+      "website": "https://github.com/handshake-org/hnsd",
+      "feedUrl": "https://github.com/handshake-org/hnsd/commits/master.atom",
+      "sourceMetadataUrl": "",
+      "topics": ["protocol", "developers"],
+      "language": "en",
+      "registryLabels": ["community-submitted", "source-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "GitHub Atom feed for hnsd commit updates."
+    },
+    {
+      "id": "shakedex-releases",
+      "name": "Shakedex Releases",
+      "dnsUrl": "https://github.com/kurumiimari/shakedex/releases",
+      "hnsUrl": "",
+      "website": "https://github.com/kurumiimari/shakedex/releases",
+      "feedUrl": "https://github.com/kurumiimari/shakedex/releases.atom",
+      "sourceMetadataUrl": "",
+      "topics": ["applications", "developers"],
+      "language": "en",
+      "registryLabels": ["community-submitted", "source-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "GitHub Atom feed for Shakedex release updates."
+    },
+    {
+      "id": "bob-wallet-releases",
+      "name": "Bob Wallet Releases",
+      "dnsUrl": "https://github.com/bob-wallet/bob-wallet/releases",
+      "hnsUrl": "",
+      "website": "https://github.com/bob-wallet/bob-wallet/releases",
+      "feedUrl": "https://github.com/bob-wallet/bob-wallet/releases.atom",
+      "sourceMetadataUrl": "",
+      "topics": ["applications", "developers"],
+      "language": "en",
+      "registryLabels": ["community-submitted", "source-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "GitHub Atom feed for upstream Bob Wallet release updates."
+    },
+    {
+      "id": "impervious-fingertip-releases",
+      "name": "Fingertip Releases",
+      "dnsUrl": "https://github.com/imperviousinc/fingertip/releases",
+      "hnsUrl": "",
+      "website": "https://github.com/imperviousinc/fingertip/releases",
+      "feedUrl": "https://github.com/imperviousinc/fingertip/releases.atom",
+      "sourceMetadataUrl": "",
+      "topics": ["applications", "developers", "security"],
+      "language": "en",
+      "registryLabels": ["community-submitted", "source-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "GitHub Atom feed for Fingertip resolver release updates."
+    },
+    {
+      "id": "impervious-beacon-releases",
+      "name": "Beacon Releases",
+      "dnsUrl": "https://github.com/imperviousinc/beacon/releases",
+      "hnsUrl": "",
+      "website": "https://github.com/imperviousinc/beacon/releases",
+      "feedUrl": "https://github.com/imperviousinc/beacon/releases.atom",
+      "sourceMetadataUrl": "",
+      "topics": ["applications", "developers", "security"],
+      "language": "en",
+      "registryLabels": ["community-submitted", "source-verified"],
+      "lastVerified": "2026-06-08",
+      "notes": "GitHub Atom feed for Beacon browser release updates."
+    }
+  ]
 }
